@@ -24,14 +24,26 @@ export class BasicPageComponent implements OnInit {
     );
   }
 
-  getFieldError(field: string): string {
-    let textError = '';
+  getFieldError(field: string): string | null{
+    /* let textError = '';
     if (this.myForm.controls[field].hasError('required')) {
-      textError = 'This field is required';
+      textError = 'Este camp es requerido';
     } else if (this.myForm.controls[field].hasError('minlength')) {
-      textError = 'The field must be at least 3 letters';
+      textError = 'El campo tiene que tener mas de 3 letras';
     }
-    return textError;
+
+    return textError;*/
+    if(!this.myForm.controls[field]) return null;
+    const textError = this.myForm.controls[field].errors || {};
+
+    for(const key of Object.keys(textError)) {
+      switch(key) {
+        case 'required': return 'Este campo es requerido';
+        case 'minlength': return `Este campo tiene que tener ${textError['minlength'].requiredLength} carácteres`;
+      }
+    }
+
+    return null;
   }
 
   onSave(): void {
