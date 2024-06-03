@@ -18,10 +18,6 @@ export class RegisterPageComponent {
     password2: ['', [Validators.required]],
   });
 
-  onSubmit(){
-    this.myForm.markAllAsTouched();
-  }
-
   onSave(){
     if (this.myForm.invalid){
       this.myForm.markAllAsTouched();

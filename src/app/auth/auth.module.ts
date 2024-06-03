@@ -14,7 +14,6 @@ import { ReactiveRoutingModule } from '../reactive/reactive-routing.module';
   imports: [
     CommonModule,
     AuthRoutingModule,
-    ReactiveRoutingModule,
     ReactiveFormsModule
   ]
 })
