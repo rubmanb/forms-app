@@ -12,11 +12,11 @@ export class DynamicPageComponent {
   public myForm: FormGroup = this.formBuilder.group({
     name: ['', [Validators.required], [Validators.minLength]],
     favGames: this.formBuilder.array([
-      ['World of Warcraft', [Validators.required]],
-      ['Diablo 4', [Validators.required]],
-      ['Final Fantasy', [Validators.required]]
+      ['World of Warcraft', Validators.required],
+      ['Diablo 4', Validators.required],
+      ['Final Fantasy', Validators.required]
     ]),
-    removeFavGames: ['', [Validators.required]]
+    removeFavGames: ['', Validators.required]
   });
 
   public newFavGame: FormControl = new FormControl('', [Validators.required]);
