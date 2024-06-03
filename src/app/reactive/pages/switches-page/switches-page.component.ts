@@ -1,3 +1,4 @@
+import { ValidatorService } from './../../../shared/validators/validator.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
@@ -18,15 +19,14 @@ export class SwitchesPageComponent implements OnInit {
   }
 
 
-  constructor( private fb: FormBuilder ) {}
+  constructor( private fb: FormBuilder, private validatorService: ValidatorService ) {}
 
   ngOnInit(): void {
     this.myForm.reset( this.person )
   }
 
   isValidField( field: string ): boolean | null {
-    return this.myForm.controls[field].errors
-      && this.myForm.controls[field].touched;
+    return this.validatorService.isValidField(this.myForm, field);
   }
 
   //ngSubmit

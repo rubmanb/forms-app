@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ValidatorService } from '../../../shared/validators/validator.service';
 
 @Component({
   templateUrl: './basic-page.component.html',
   styles: ``,
 })
 export class BasicPageComponent implements OnInit {
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, private validatorService: ValidatorService) {}
 
   public myForm: FormGroup = this.formBuilder.group({
     name: ['', [Validators.required, Validators.minLength(3)]],
@@ -19,9 +20,7 @@ export class BasicPageComponent implements OnInit {
   }
 
   isNotValidField(field: string): boolean | null {
-    return (
-      this.myForm.controls[field].errors && this.myForm.controls[field].touched
-    );
+    return this.validatorService.isValidField(this.myForm, field);
   }
 
   getFieldError(field: string): string | null{

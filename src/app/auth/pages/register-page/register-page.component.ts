@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ValidatorService } from '../../../shared/validators/validator.service';
+
+
 
 @Component({
   templateUrl: './register-page.component.html',
@@ -8,12 +11,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class RegisterPageComponent {
 
 
-  constructor(private formBuilder: FormBuilder){}
+  constructor(private formBuilder: FormBuilder, private validatorService: ValidatorService){}
 
   public myForm: FormGroup = this.formBuilder.group({
-    name: ['', [Validators.required]],
-    email: ['', [Validators.required]],
-    username: ['', [Validators.required]],
+    name: ['', [Validators.required, Validators.pattern(this.validatorService.firstNameAndLastnamePattern)]],
+    email: ['', [Validators.required, Validators.pattern(this.validatorService.emailPattern)]],
+    username: ['', [Validators.required, this.validatorService.cantBeStrider]],
     password: ['', [Validators.required, Validators.minLength(6)]],
     password2: ['', [Validators.required]],
   });
@@ -27,8 +30,6 @@ export class RegisterPageComponent {
   }
 
   isValidField(field: string): boolean | null {
-    return (
-      this.myForm.controls[field].errors && this.myForm.controls[field].touched
-    );
+    return this.validatorService.isValidField(this.myForm, field);
   }
 }
